@@ -14,7 +14,7 @@ const Header = () => {
             </ul>
     </>
     
-    const mobileNav = <div className={`flex justify-between items-center w-[100%] ${isOpen?"z-10":"z-0"}`}>
+    const mobileNav = <div className={`flex justify-between items-center w-[100%] ${isOpen?"z-20":"z-0"}`}>
         <input type="image" src="/images/logo.svg"/>
         <input onClick={() => {setIsOpen(!isOpen)}} type='image' src={`/images/${isOpen?"icon-close-menu.svg":"icon-hamburger.svg"}`}/>
         <ul className={`absolute font-commissioner font-medium rounded-lg flex flex-col bg-white text-black w-[90%] top-20 left-[5%] ${isOpen?"h-[169.6px]":"h-0"} overflow-hidden transition-all`}>
@@ -27,10 +27,13 @@ const Header = () => {
     </div>
 
     return (
+        <>
         <div className="flex justify-between items-center md:px-32 md:py-10 mobile:px-5 mobile:py-8">
             {desktop?desktopNav:mobileNav}
-            {desktop?null:<div className={`absolute top-0 left-0 ${isOpen?" bg-black/60 z-0":" bg-none -z-10"} w-[100%] h-[100vh]`}></div> }
+            {desktop?null:<div className={`absolute top-0 left-0 ${isOpen?" bg-black/60 z-10":" bg-none -z-10"} w-[100%] h-[100vh]`}></div> } 
         </div>
+        <div className='w-[100%] h-0 pb-[13%]'></div>
+        </>
     )
 }
 
