@@ -30,7 +30,7 @@ const Header = () => {
         <>
         <div className="flex justify-between items-center md:px-32 md:py-10 mobile:px-5 mobile:py-8">
             {desktop?desktopNav:mobileNav}
-            {desktop?null:<div className={`absolute top-0 left-0 ${isOpen?" bg-black/60 z-10":" bg-none -z-10"} w-[100%] h-[100vh]`}></div> } 
+            {desktop?null:<div className={`absolute top-0 left-0 ${isOpen?" bg-black/60 z-10":" bg-none -z-10"} w-[100%] h-[1000px]`}></div> } 
         </div>
         <div className='w-[100%] h-0 pb-[13%]'></div>
         </>
