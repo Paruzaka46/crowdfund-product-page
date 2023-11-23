@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
 
 const Header = () => {
@@ -13,6 +13,15 @@ const Header = () => {
                 <li><a href="#">Get Started</a></li>
             </ul>
     </>
+
+    useEffect(() => {
+        if (isOpen) {
+        window.scrollTo(0, 0);
+        document.body.style.overflowY = "hidden";
+        } else {
+        document.body.style.overflowY = "auto";
+        }
+    }, [isOpen]);
     
     const mobileNav = <div className={`flex justify-between items-center w-[100%] ${isOpen?"z-20":"z-0"}`}>
         <input type="image" src="/images/logo.svg"/>
