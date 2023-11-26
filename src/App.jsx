@@ -7,6 +7,7 @@ import Content from './components/Content'
 import Radio from './components/Radio'
 import Thanks from './components/Thanks'
 import { ModalProvider } from './components/ModalContext'
+import Watermark from './components/Watermark'
 
 function App() {
   const desktop = useMediaQuery({query: "(min-width: 768px)"})
@@ -74,7 +75,6 @@ function App() {
     <ModalProvider>
       <div className='relative bg-dark-grey/10 min-h-full overflow-hidden'>
         <img className=' -z-10 absolute w-[100%]' src={desktop?"images/image-hero-desktop.jpg":"images/image-hero-mobile.jpg"}/>
-        {/* <div className=' -z-20 absolute w-[100%] h-[100vh] bg-pink-300'></div> */}
         <Header/>
         <div className='lg:mx-[25%] md:mx-[15%] mobile:mx-5'>
           <ProductName onShow={appear} onClose={closeModal}/> 
@@ -90,6 +90,7 @@ function App() {
         </div>
       </div>
     </ModalProvider>
+    <Watermark/>
     </>
   )
 }

@@ -6,7 +6,7 @@ const Content = ({rewards, onShow}) => {
 
     return (
         <>
-            <div className="bg-white md:p-14 mobile:p-7 font-commissioner mb-5">
+            <div className="bg-white md:p-14 mobile:p-7 font-commissioner mb-5 rounded-md">
                 <h2 className="text-[20px] font-bold">About this project</h2>
                 <br/>
                 <p className=" text-dark-grey">
