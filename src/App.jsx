@@ -5,6 +5,7 @@ import ProductName from './components/ProductName'
 import Statistic from './components/Statistic'
 import Content from './components/Content'
 import Radio from './components/Radio'
+import Thanks from './components/Thanks'
 import { ModalProvider } from './components/ModalContext'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
   const [pledge, setPledge] = useState(89941)
   const [backers, setBackers] = useState(5007)
   const [showModal, setShowModal] = useState(false)
+  const [showThanks, setShowThanks] = useState(false)
 
   const appear = () => {
     setShowModal(true)
@@ -19,6 +21,17 @@ function App() {
   const closeModal = () => {
     setShowModal(false)
   } 
+
+  const submit = (pledge) => {
+    setShowModal(false);
+    setShowThanks(true);
+    setPledge(prev => prev + pledge)
+    setBackers(prev => prev + 1)
+  }
+
+  const closeThanks = () => {
+    setShowThanks(false)
+  }
 
   const rewards = [
     {
@@ -41,9 +54,25 @@ function App() {
     }
   ]
 
+  useEffect(() => {
+    if (showModal || showThanks) {
+    document.body.style.overflowY = "hidden";
+    } else {
+    document.body.style.overflow = "auto";
+    }
+}, [showModal, showThanks]);
+
+  useEffect(() => {
+    if (showModal) {
+      window.scrollTo(0, 0);
+    }
+  }, [showModal]);
+
+
   return (
+    <>
     <ModalProvider>
-      <div className=' bg-dark-grey/10 min-h-full'>
+      <div className='relative bg-dark-grey/10 min-h-full overflow-hidden'>
         <img className=' -z-10 absolute w-[100%]' src={desktop?"images/image-hero-desktop.jpg":"images/image-hero-mobile.jpg"}/>
         {/* <div className=' -z-20 absolute w-[100%] h-[100vh] bg-pink-300'></div> */}
         <Header/>
@@ -52,11 +81,16 @@ function App() {
           <Statistic pledge={pledge} backers={backers}/>
           <Content rewards={rewards} onShow={appear}/>
         </div>
-        <div className={`lg:mx-[25%] md:mx-[15%] mobile:mx-5 ${showModal?" h-fit":"h-0"} overflow-hidden`}>
-          <Radio rewards={rewards} onClose={closeModal}/>
+
+        <div className={`absolute top-0 bg-black/40 w-[100%] ${showModal?" py-32 h-[100vh] z-20":"h-0"} overflow-y-scroll`}>
+          <Radio rewards={rewards} onClose={closeModal} onSubmitData={submit}/>
+        </div>
+        <div className={`${showThanks?"flex":"hidden"} justify-center items-center absolute top-0 w-[100%] bg-black/40 h-[100vh]`}>
+          <Thanks onClose={closeThanks}/>
         </div>
       </div>
     </ModalProvider>
+    </>
   )
 }
 

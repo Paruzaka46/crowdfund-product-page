@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useMediaQuery } from 'react-responsive'
+import { usePick, usePickUpdate } from './ModalContext'
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false)
     const desktop = useMediaQuery({query: "(min-width: 768px)"})
+    const resetPick = usePick()
 
     const desktopNav = <>
             <input type="image" src="/images/logo.svg"/>
@@ -14,18 +16,18 @@ const Header = () => {
             </ul>
     </>
 
-    useEffect(() => {
-        if (isOpen) {
-        window.scrollTo(0, 0);
-        document.body.style.overflowY = "hidden";
-        } else {
-        document.body.style.overflowY = "auto";
-        }
-    }, [isOpen]);
+    // useEffect(() => {
+    //     if (isOpen) {
+    //     window.scrollTo(0, 0);
+    //     document.body.style.overflowY = "hidden";
+    //     } else {
+    //     document.body.style.overflowY = "auto";
+    //     }
+    // }, [isOpen]);
     
     const mobileNav = <div className={`flex justify-between items-center w-[100%] ${isOpen?"z-20":"z-0"}`}>
         <input type="image" src="/images/logo.svg"/>
-        <input onClick={() => {setIsOpen(!isOpen)}} type='image' src={`/images/${isOpen?"icon-close-menu.svg":"icon-hamburger.svg"}`}/>
+        <input onClick={() => {setIsOpen(!isOpen); resetPick(-1)}} type='image' src={`/images/${isOpen?"icon-close-menu.svg":"icon-hamburger.svg"}`}/>
         <ul className={`absolute font-commissioner font-medium rounded-lg flex flex-col bg-white text-black w-[90%] top-20 left-[5%] ${isOpen?"h-[169.6px]":"h-0"} overflow-hidden transition-all`}>
             <li className='p-4'><a href="#">About</a></li>
             <hr/>
